@@ -17,7 +17,7 @@ namespace DesafioTecnicoBanking.Objetos
             operacaoGratuitaNoMes = true;
         }
         //A conta corrente tem um limite de cheque especial(por padrão R$ 300,00)
-        public double ChequeEspecial { get => 300.00; }
+        
         private bool VerificarPrimeiraOperacaoMes()
         {
             DateTime dataAtual = DateTime.Now;
@@ -33,33 +33,25 @@ namespace DesafioTecnicoBanking.Objetos
 
         //    Cada operação em conta corrente tem um custo, a primeira operação de cada mês não tem custo, os valores são:
         //    Deposito: Grátis
-        public override void Deposito(ContaCorrente destino, double valor)
+        public override void Deposito(Conta destino, double valor)
         {
-            
+            base.Deposito(destino, valor);
         }
         //    Saque: R$ 4,77
         public override void Saque(double valor)
         {
             bool operacao = VerificarPrimeiraOperacaoMes();
-            double saldoTotal = this.Saldo + ChequeEspecial;
             double operacaoSaque = 4.77;
-            if (operacao == true)
+            if (operacao)
             {
+                base.Saque(valor);
                 //Qual o valor sacado
-                if (saldoTotal > valor)
-                {
-                    this.Saldo -= valor;
-                    MessageBox.Show($"Você sacou R${valor} e seu saldo foi para {this.Saldo.ToString("F")}.");
-                }
-                else
-                {
-                    MessageBox.Show("Valor do saque é maior que o seu saldo");
-                }
+                
                 //As operações de saque não podem exceder o saldo mais o limite de cheque especial
             }
             else
             {
-                if (saldoTotal > valor)
+                if (this.SaldoTotal > valor)
                 {
                     this.Saldo -= (valor + operacaoSaque); 
                     MessageBox.Show($"Você sacou R${valor}.");
@@ -75,24 +67,18 @@ namespace DesafioTecnicoBanking.Objetos
         public override void Transferencia(Conta destino, double valor)
         {
             bool operacao = VerificarPrimeiraOperacaoMes();
-            if (operacao == true)
+            double operacaoTransferencia = 2.25;
+            if (operacao)
             {
                 //Qual o valor sacado
-                if (destino.Agencia == this.Agencia)
-                {
-                    this.Saldo -= valor;
-                }
-                else
-                {
-                    MessageBox.Show("A operação não pode ser concluída pois não são do mesmo banco.");
-                }
+                base.Transferencia(destino, valor);
                 //As operações de saque não podem exceder o saldo mais o limite de cheque especial
             }
             else
             {
                 if (destino.Agencia == this.Agencia)
                 {
-                    this.Saldo -= (valor + 2.25);
+                    this.Saldo -= (valor + operacaoTransferencia);
                 }
                 else
                 {
@@ -100,20 +86,20 @@ namespace DesafioTecnicoBanking.Objetos
                 }
             }
             //Conta destino da transferencia(sempre será no mesmo banco)
-            this.Saldo -= (valor + 2.25);
             //Qual o valor transferido
         }
         //    Extrato: R$ 3,82
         public override void Extrato()
         {
             bool operacao = VerificarPrimeiraOperacaoMes();
-            if (operacao == true)
+            double operacaoExtrato = 3.82;
+            if (operacao)
             {
                 MessageBox.Show("Primeira operação do mês é gratuito.");
             }
             else
             {
-                this.Saldo -= 3.82;
+                this.Saldo -= operacaoExtrato;
             }
         }
         //    Consultar Saldo: R$ 1,37
@@ -121,10 +107,9 @@ namespace DesafioTecnicoBanking.Objetos
         {
             double operacaoConsultaSaldo = 1.37;
             bool operacao = VerificarPrimeiraOperacaoMes();
-            if (operacao == true)
+            if (operacao)
             {
-                MessageBox.Show("Primeira operação do mês é gratuito.");
-                MessageBox.Show($"Seu saldo é de {this.Saldo.ToString("F")}");
+                base.ConsultarSaldo();
             }
             else
             {

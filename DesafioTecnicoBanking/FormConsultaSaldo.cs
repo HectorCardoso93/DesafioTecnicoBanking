@@ -13,11 +13,11 @@ namespace DesafioTecnicoBanking
 {
     public partial class FormConsultaSaldo : Form
     {
-        List<ContaCorrente> contas;
+        List<Conta> contas;
         private Form1 formPrincipal;
         public FormConsultaSaldo(Form1 formPrincipal)
         {
-            contas = new List<ContaCorrente>();
+            contas = new List<Conta>();
             InitializeComponent();
             this.formPrincipal = formPrincipal;
         }
@@ -32,7 +32,7 @@ namespace DesafioTecnicoBanking
             this.Close();
         }
 
-        public void SetTitulares(List<ContaCorrente> titulares)
+        public void SetTitulares(List<Conta> titulares)
         {
             foreach (var titular in titulares)
             {
@@ -49,7 +49,7 @@ namespace DesafioTecnicoBanking
         private void comboTitular_SelectedIndexChanged(object sender, EventArgs e)
         {
             int indice = comboTitular.SelectedIndex;
-            ContaCorrente selecionada = contas[indice];
+            Conta selecionada = contas[indice];
             selecionada.ConsultarSaldo();
 
             textoAgencia.Text = Convert.ToString(selecionada.Agencia);

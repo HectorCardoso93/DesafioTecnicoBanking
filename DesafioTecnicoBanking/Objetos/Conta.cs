@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace DesafioTecnicoBanking.Objetos
 {
-    public class Conta
+    public abstract class Conta
     {
         private static int numeroConta;
         public Conta()
@@ -26,29 +26,26 @@ namespace DesafioTecnicoBanking.Objetos
         }
         public int NumeroConta { get; internal set; }
         public int Agencia { get => 100; }
-        //public double Saldo { get; set; }
         public Pessoa Titular { get; set; }
         public double Saldo { get; internal set; }
-        public virtual void Deposito (ContaCorrente destino, double valor)
+        public double ChequeEspecial { get => 300.00; }
+        public double SaldoTotal { get => this.Saldo + this.ChequeEspecial; }
+        public virtual void Deposito (Conta destino, double valor)
         {
             //Quem foi o Depositante
 
             //Qual conta destino do deposito
 
             //Qual o valor depositado
-            if(valor > 0)
-            {
-                destino.Saldo += valor;
-                this.Saldo -= valor;
-                MessageBox.Show($"Deposito efetuado com sucesso de {this.Titular.Nome} para {destino.Titular.Nome} no valor de R${valor.ToString("F")}");
-            } else
-            {
-                MessageBox.Show("Saldo é inferior ao valor depositado.");
-            }
+           
+            destino.Saldo += valor;
+            this.Saldo -= valor;
+            MessageBox.Show($"Deposito efetuado com sucesso de {this.Titular.Nome} para {destino.Titular.Nome} no valor de R${valor.ToString("F")}");
         }
         public virtual void ConsultarSaldo() 
         {
-            //MessageBox.Show($"Seu saldo é de {this.Saldo}");
+            MessageBox.Show("Primeira operação do mês é gratuito.");
+            MessageBox.Show($"Seu saldo é de {this.Saldo.ToString("F")}");
         }
         public virtual void Extrato()
         {
@@ -57,11 +54,13 @@ namespace DesafioTecnicoBanking.Objetos
         public virtual void Saque(double valor)
         {
             //Qual o valor sacado
-            double saldoTotal = this.Titular.Saldo + 300;
-            if(saldoTotal > valor)
+            
+            if(this.SaldoTotal > valor)
             {
                 this.Titular.Saldo -= valor;
-            } else
+                MessageBox.Show($"Você sacou R${valor} e seu saldo foi para {this.Saldo.ToString("F")}.");
+            }
+            else
             {
                 MessageBox.Show("Valor do saque é maior que o seu saldo");
             }
@@ -74,6 +73,7 @@ namespace DesafioTecnicoBanking.Objetos
             {
                 this.Titular.Saldo -= valor;
                 destino.Saldo += valor;
+                MessageBox.Show($"A transferência foi concluída com sucesso para {destino.Titular.Nome} no valor de {valor}");
             }
             else
             {

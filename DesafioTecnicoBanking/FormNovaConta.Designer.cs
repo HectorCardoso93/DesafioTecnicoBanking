@@ -35,6 +35,8 @@
             textoConta = new TextBox();
             textoTitular = new TextBox();
             groupBox1 = new GroupBox();
+            label4 = new Label();
+            comboTipoDeConta = new ComboBox();
             botaoCancelar = new Button();
             botaoCriar = new Button();
             groupBox1.SuspendLayout();
@@ -61,7 +63,7 @@
             // label3
             // 
             label3.AutoSize = true;
-            label3.Location = new Point(28, 202);
+            label3.Location = new Point(28, 197);
             label3.Name = "label3";
             label3.Size = new Size(51, 20);
             label3.TabIndex = 2;
@@ -86,21 +88,42 @@
             // 
             // textoTitular
             // 
-            textoTitular.Location = new Point(184, 195);
+            textoTitular.Location = new Point(184, 190);
             textoTitular.Name = "textoTitular";
             textoTitular.Size = new Size(169, 27);
             textoTitular.TabIndex = 5;
             // 
             // groupBox1
             // 
+            groupBox1.Controls.Add(label4);
+            groupBox1.Controls.Add(comboTipoDeConta);
             groupBox1.Controls.Add(botaoCancelar);
             groupBox1.Controls.Add(botaoCriar);
             groupBox1.Location = new Point(12, 41);
             groupBox1.Name = "groupBox1";
-            groupBox1.Size = new Size(398, 280);
+            groupBox1.Size = new Size(692, 280);
             groupBox1.TabIndex = 6;
             groupBox1.TabStop = false;
             groupBox1.Text = "Nova Conta";
+            // 
+            // label4
+            // 
+            label4.AutoSize = true;
+            label4.Location = new Point(391, 56);
+            label4.Name = "label4";
+            label4.Size = new Size(103, 20);
+            label4.TabIndex = 8;
+            label4.Text = "Tipo de Conta";
+            // 
+            // comboTipoDeConta
+            // 
+            comboTipoDeConta.FormattingEnabled = true;
+            comboTipoDeConta.Items.AddRange(new object[] { "Conta Corrente", "Conta Poupança" });
+            comboTipoDeConta.Location = new Point(525, 49);
+            comboTipoDeConta.Name = "comboTipoDeConta";
+            comboTipoDeConta.Size = new Size(151, 28);
+            comboTipoDeConta.TabIndex = 7;
+            comboTipoDeConta.SelectedIndexChanged += comboBox1_SelectedIndexChanged;
             // 
             // botaoCancelar
             // 
@@ -138,6 +161,7 @@
             Text = "FormNovaConta";
             Load += FormNovaConta_Load;
             groupBox1.ResumeLayout(false);
+            groupBox1.PerformLayout();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -153,5 +177,7 @@
         private GroupBox groupBox1;
         private Button botaoCancelar;
         private Button botaoCriar;
+        private Label label4;
+        private ComboBox comboTipoDeConta;
     }
 }
