@@ -13,17 +13,17 @@ namespace DesafioTecnicoBanking
 {
     public partial class FormDeposito : Form
     {
-        private List<ContaCorrente> contas;
+        private List<Conta> contas;
         private Form1 formPrincipal;
         public FormDeposito(Form1 formPrincipal)
         {
-            contas = new List<ContaCorrente>();
+            contas = new List<Conta>();
             this.formPrincipal = formPrincipal;
             InitializeComponent();
         }
-        public void SetTitulares(List<ContaCorrente> titulares)
+        public void SetTitulares(List<Conta> titulares)
         {
-            foreach (ContaCorrente titular in titulares)
+            foreach (Conta titular in titulares)
             {
                 comboDepositante.Items.Add(titular);
                 comboDestino.Items.Add(titular);
@@ -40,8 +40,8 @@ namespace DesafioTecnicoBanking
             int indiceDepositante = comboDepositante.SelectedIndex;
             int indiceDestino = comboDestino.SelectedIndex;
 
-            ContaCorrente depositante = contas[indiceDepositante];
-            ContaCorrente destino = contas[indiceDestino];
+            var depositante = contas[indiceDepositante];
+            var destino = contas[indiceDestino];
 
             double valor = Convert.ToDouble(textoValor.Text);
 

@@ -19,6 +19,18 @@ namespace DesafioTecnicoBanking
             this.formPrincipal = formPrincipal;
             InitializeComponent();
         }
+        public Conta TipoDeConta()
+        {
+            int indice = comboTipoDeConta.SelectedIndex;
+            if (indice == 0)
+            {
+                return new ContaCorrente();
+            }
+            else
+            {
+                return new ContaPoupanca();
+            }
+        }
 
         private void FormNovaConta_Load(object sender, EventArgs e)
         {
@@ -42,15 +54,16 @@ namespace DesafioTecnicoBanking
             //int criarAgencia = Convert.ToInt32(textoAgencia.Text);
             string criarTitular = textoTitular.Text;
 
-            ContaCorrente novaConta = new ContaCorrente()
-            {
-                //Agencia = criarAgencia,
-                Titular = new Pessoa(criarTitular)
-            };
+            var novaConta = TipoDeConta();
+            novaConta.Titular = new Pessoa(criarTitular);
             this.formPrincipal.AdicionarConta(novaConta);
             MessageBox.Show($"Nova conta criada para {novaConta.Titular.Nome} : Agência {novaConta.Agencia} - Número da Conta {novaConta.NumeroConta}");
             textoTitular.Text = "";
             textoConta.Text = Convert.ToString(novaConta.ProximoNumeroConta());
+        }
+
+        private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
+        {
         }
     }
 }

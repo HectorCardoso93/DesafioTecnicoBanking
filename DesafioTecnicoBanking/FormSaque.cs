@@ -13,16 +13,16 @@ namespace DesafioTecnicoBanking
 {
     public partial class FormSaque : Form
     {
-        List<ContaCorrente> contas;
+        List<Conta> contas;
         private Form1 formPrincipal;
         public FormSaque(Form1 formPrincipal)
         {
-            contas = new List<ContaCorrente>();
+            contas = new List<Conta>();
             InitializeComponent();
             this.formPrincipal = formPrincipal;
         }
 
-        internal void SetTitulares(List<ContaCorrente> titulares)
+        internal void SetTitulares(List<Conta> titulares)
         {
             foreach (var titular in titulares)
             {
@@ -39,7 +39,7 @@ namespace DesafioTecnicoBanking
         private void botaoSacar_Click(object sender, EventArgs e)
         {
             int indice = comboTitulares.SelectedIndex;
-            ContaCorrente selecionada = contas[indice];
+            Conta selecionada = contas[indice];
 
             double valor = Convert.ToDouble(textoValor.Text);
 
