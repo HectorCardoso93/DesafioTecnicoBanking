@@ -9,5 +9,15 @@ namespace DesafioTecnicoBanking.Objetos
 {
     public class ContaPoupanca : Conta
     {
+        public override void Transferencia(Conta destino, double valor)
+        {
+            if(destino is ContaCorrente)
+            {
+                MessageBox.Show("Transferência de conta poupança para conta corrente não permitida.");
+            } else
+            {
+                base.Transferencia(destino, valor);
+            }
+        }
     }
 }

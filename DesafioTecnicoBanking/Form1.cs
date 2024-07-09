@@ -4,8 +4,8 @@ namespace DesafioTecnicoBanking
 {
     public partial class Form1 : Form
     {
-        private List<ContaCorrente> Contas { get; set; } = new List<ContaCorrente>();
-        public void AdicionarConta(ContaCorrente conta)
+        private List<Conta> Contas { get; set; } = new List<Conta>();
+        public void AdicionarConta(Conta conta)
         {
             this.Contas.Add(conta);
             comboContas.Items.Add(conta);
@@ -58,11 +58,10 @@ namespace DesafioTecnicoBanking
         private void comboContas_SelectedIndexChanged(object sender, EventArgs e)
         {
             int indice = comboContas.SelectedIndex;
-            ContaCorrente selecionada = Contas[indice];
+            Conta selecionada = Contas[indice];
             textoAgencia.Text = Convert.ToString(selecionada.Agencia);
             textoNumeroConta.Text = Convert.ToString(selecionada.NumeroConta);
             textoTitular.Text = selecionada.Titular.Nome;
-            textoSaldo.Text = Convert.ToString(selecionada.Saldo);
         }
 
         private void Form1_Load(object sender, EventArgs e)

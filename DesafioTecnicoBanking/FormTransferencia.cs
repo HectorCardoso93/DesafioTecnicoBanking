@@ -13,18 +13,18 @@ namespace DesafioTecnicoBanking
 {
     public partial class FormTransferencia : Form
     {
-        private List<ContaCorrente> contas;
+        private List<Conta> contas;
         private Form1 formPrincipal;
         public FormTransferencia(Form1 formPrincipal)
         {
-            contas = new List<ContaCorrente>();
+            contas = new List<Conta>();
             this.formPrincipal = formPrincipal;
             InitializeComponent();
         }
 
-        public void SetTitulares(List<ContaCorrente> titulares)
+        public void SetTitulares(List<Conta> titulares)
         {
-            foreach (ContaCorrente titular in titulares)
+            foreach (Conta titular in titulares)
             {
                 comboRemetente.Items.Add(titular);
                 comboDestino.Items.Add(titular);
@@ -52,8 +52,8 @@ namespace DesafioTecnicoBanking
             int indiceRemetente = comboRemetente.SelectedIndex;
             int indiceDestino = comboDestino.SelectedIndex;
 
-            ContaCorrente contaRemetente = contas[indiceRemetente];
-            ContaCorrente contaDestino = contas[indiceDestino];
+            var contaRemetente = contas[indiceRemetente];
+            var contaDestino = contas[indiceDestino];
 
             double valor = Convert.ToDouble(textoValor.Text);
 
